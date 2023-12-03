@@ -1,12 +1,15 @@
 
 class Leaker {
   constructor() {
-    this.date = new Date();
-    this.timerId = setInterval(this.onInterval, 1000);
+    this.timerId = setInterval(this.onInterval, 1000)
   }
 
   onInterval() {
-    console.log(`interval`);
+    console.log(`interval`)
+  }
+
+  execClearInterval() {
+    clearInterval(this.timerId)
   }
 }
 
@@ -20,7 +23,8 @@ function disp() {
   console.log(leaker)
 }
 
-function clear() {
+function setNull() {
+  leaker.execClearInterval()
   leaker = null
 }
 

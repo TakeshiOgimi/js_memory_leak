@@ -1,6 +1,7 @@
 class Registry {
   constructor() {
     this.subscribers = [];
+    this.str = this.randStr();
   }
 
   add(subscriber) {
@@ -14,6 +15,12 @@ class Registry {
       this.subscribers.splice(this.subscribers.indexOf(subscriber), 1);
     }
   }
+
+  randStr() {
+    var S="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    var N=1000*1000*100
+    return Array.from(Array(N)).map(()=>S[Math.floor(Math.random()*S.length)]).join('')
+  }
 }
 
 class Leaker {
@@ -26,12 +33,26 @@ class Leaker {
     if (!this.parent) {
       this.child = new Leaker(this, registry);
     }
+    this.str = this.randStr();
+  }
+
+  randStr() {
+    var S="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    var N=1000*1000*100
+    return Array.from(Array(N)).map(()=>S[Math.floor(Math.random()*S.length)]).join('')
   }
 }
 
+let registry;
+let leaker;
+
 function create() {
-  let registry = new Registry();
-  let leaker = new Leaker(null, registry);
+  registry = new Registry();
+  leaker = new Leaker(null, registry);
   leaker = null;
+}
+
+function setNull() {
+  registry = null;
 }
 
